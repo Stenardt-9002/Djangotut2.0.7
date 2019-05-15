@@ -12,6 +12,11 @@
 
 <ul>
   {% for my_sub_item  in my_lit %}
+  {% if my_sub_item == 312 %}
+  <h1>Hella bitches</h1>
+  <li>{{forloop.counter}}  -  {{my_sub_item|add:22}}</li>
+  <!-- buit in template tag render -->
+  {% endif %}
   <li>{{forloop.counter}}  -  {{my_sub_item}}</li>
   {% endfor %}
 

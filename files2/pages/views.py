@@ -14,7 +14,7 @@ def about_view(request):
     my_context = {
         "my_text":"This is about us",
         "my_nu" : 123,
-        "my_lit" : {12,34,45,56}
+        "my_lit" : [12,34,45,56,312]
 
     }
     # return HttpResponse("<h1> About Page </h1> ")
