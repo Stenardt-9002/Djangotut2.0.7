@@ -36,4 +36,4 @@ def about(request):
     print("OOnga")
     print(request)
     # return HttpResponse('<h1>About Page of this shiz</h1>')
-    return render(request,'blogpost/about1.html' ,{'title':'Abootututu'})
+    return render(request,'blogpost/about1.html' ,{'title':'About pAge'})
