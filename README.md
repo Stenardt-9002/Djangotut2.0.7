@@ -1,2 +1,3 @@
 # Djangotut2.0.7
-Tutorial follow
+Sample page for deployment of Weather classifciation.
+Existing model only
