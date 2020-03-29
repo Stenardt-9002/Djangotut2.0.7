@@ -30,10 +30,24 @@
 
 <!-- template engine -->
 {%block content %}
+
 {%for pst in posts %}
-<h1>{{pst.title}}</h1>
-<p>By {{pst.author}} on {{pst.data_posted}}</p>
-<p>{{pst.content}}</p>
+
+<article class="media content-section">
+<div class="media-body">
+  <div class="article-metadata">
+    <a class="mr-2" href="#">{{ pst.author }}</a>
+    <small class="text-muted">{{ pst.data_posted }}</small>
+  </div>
+  <h2><a class="article-title" href="#">{{ pst.title }}</a></h2>
+  <p class="article-content">{{ pst.content }}</p>
+</div>
+</article>
+
+<!-- <h1>{{pst.title}}</h1> -->
+
+<!-- <p>By {{pst.author}} on {{pst.data_posted}}</p> -->
+<!-- <p>{{pst.content}}</p> -->
 {% endfor %}
 {%endblock content %}
 <!-- which block closed -->
