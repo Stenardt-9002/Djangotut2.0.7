@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+    <meta charset="utf-8">
+    <!-- <title>Home page</title> -->
+    {%if title%}
+    <title>Django Blogpost - {{ title}}</title>
+    {%else%}
+    <title>Django Blogpost</title>
+    {%endif%}
+  </head>
+  <body>
+    <h1>Blog Home!</h1>
+    <!-- template engine -->
+    {%for pst in posts %}
+    <h1>{{pst.title}}</h1>
+    <p>By {{pst.author}} on {{pst.data_posted}}</p>
+    <p>{{pst.content}}</p>
+    {% endfor %}
+
+
+
+
+  </body>
+</html>
