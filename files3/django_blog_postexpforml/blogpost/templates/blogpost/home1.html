@@ -37,7 +37,11 @@
 <div class="media-body">
   <div class="article-metadata">
     <a class="mr-2" href="#">{{ pst.author }}</a>
-    <small class="text-muted">{{ pst.data_posted }}</small>
+    <!-- <small class="text-muted">{{ pst.data_posted }}</small> -->
+    <small class="text-muted">{{ pst.date_posted|date:"F d,Y"}}</small>
+    <!-- updated according to model field in models.py -->
+    <!-- filters present -->
+
   </div>
   <h2><a class="article-title" href="#">{{ pst.title }}</a></h2>
   <p class="article-content">{{ pst.content }}</p>
