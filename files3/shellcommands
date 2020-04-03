@@ -1,0 +1,100 @@
+
+y shell
+Python 3.6.9 (default, Nov  7 2019, 10:44:02)
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blogpost.models import Post
+>>> from django.contrib.auth.models import User
+>>> User.onjects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'User' has no attribute 'onjects'
+>>> User.objects.all()
+<QuerySet [<User: flip1>, <User: user2>]>
+>>> User.objects.filter(username = 'flip1')
+<QuerySet [<User: flip1>]>
+>>> User
+<class 'django.contrib.auth.models.User'>
+>>> user = User.objects.filter(username = 'flip1').first()
+>>> user.id
+1
+>>> user.pk
+1
+>>> Post.objects.all()
+<QuerySet []>
+>>> #no post
+>>> post_1 = Post(title = 'Blog1',content = "Fireet conetnt though shell",author = user)
+>>> post_!
+  File "<console>", line 1
+    post_!
+         ^
+SyntaxError: invalid syntax
+>>> post_1
+<Post: Post object (None)>
+>>> post_1.save()
+>>> post_1.objects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "/home/i7-workstation/Desktop/Django_projet/Djangotut2.0.7/vrtualenfrdjang2/lib/python3.6/site-packages/django/db/models/manager.py", line 176, in __get__
+    raise AttributeError("Manager isn't accessible via %s instances" % cls.__name__)
+AttributeError: Manager isn't accessible via Post instances
+>>> Post.objects.all()
+<QuerySet [<Post: Post object (1)>]>
+>>> exit()
+(vrtualenfrdjang2) i7-workstation@i7workstation-Lenovo-ideapad-520-15IKB:~/Desktop/Django_projet/Djangotut2.0.7/files3/django_blog_postexpforml$ python manage.py shell
+Python 3.6.9 (default, Nov  7 2019, 10:44:02)
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> clear
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'clear' is not defined
+>>> from blogpost.models import Post
+>>> from django.contrib.auth import Users
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: cannot import name 'Users'
+>>> from django.contrib.auth import User
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: cannot import name 'User'
+>>> from django.contrib.auth.models import User
+>>> User.objects.all()
+<QuerySet [<User: flip1>, <User: user2>]>
+>>> Post.onjects.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Post' has no attribute 'onjects'
+>>> Post.objects.all()
+<QuerySet [<Post: Blog1>]>
+>>> uase = User.objects.filter(username = 'flip1').first()
+>>> uase
+<User: flip1>
+>>> Creapost2 = Post(title = 'Blog2',content = 'Added through shell again to see model working ',author_id = uase.id)
+>>> Creapost2.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Blog1>, <Post: Blog2>]>
+>>> post1f = Post.objects.first()
+>>> post1f.content
+'Fireet conetnt though shell'
+>>> post1f.date_posted
+datetime.datetime(2020, 3, 31, 20, 0, 24, 639605, tzinfo=<UTC>)
+>>> post1f.author
+<User: flip1>
+>>> post1f.author.email
+'esd17i014@iiitdm.ac.in'
+>>>
+>>> user.post_set
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'user' is not defined
+>>> uase.post_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x7f38b7cf1be0>
+>>> uase.post_set.all()
+<QuerySet [<Post: Blog1>, <Post: Blog2>]>
+>>> uase.post_set.create(title = 'Blog3',content = "Japke Japke 12 No need to save as well")
+<Post: Blog3>
+>>> exit()
+(vrtualenfrdjang2)
