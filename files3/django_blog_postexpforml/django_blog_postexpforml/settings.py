@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blogpost.apps.BlogpostConfig', #my application added
     'user1.apps.User1Config',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -121,3 +122,5 @@ USE_TZ = True
 
 # STATIC_URL = '/static/'
 STATIC_URL = '/static/'
+
+CRIPSY_TEMPLATE_PACK = 'bootstrap4'
