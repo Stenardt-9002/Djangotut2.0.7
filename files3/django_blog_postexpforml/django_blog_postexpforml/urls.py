@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.contrib.auth import views as auth_views
 from user1 import views as user_viwes
 
 urlpatterns = [
@@ -22,6 +23,12 @@ urlpatterns = [
     # path('blogs/', include('blogpost.urls')),
     path('', include('blogpost.urls')),
     path('register-user/',user_viwes.register,name = 'register'),
-    
+    path('login-user/',auth_views.LoginView.as_view(template_name = 'user1/login.html'),name = 'login'),
+    path('logout-user/', auth_views.LogoutView.as_view(template_name = 'user1/logout.html'), name='logout'),
+    path('profile-user/', user_viwes.profile, name='profile'),
+
+    #default view login in
+
+
 
 ]

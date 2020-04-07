@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def register(request):
     # no nooed to create orm to match
@@ -18,11 +19,14 @@ def register(request):
         if form1.is_valid():
             form1.save()
             username = form1.cleaned_data.get('username')
+            # lso known as “flash message
             messages.success(request,f'Account succesful after form valdidation {username}')
+            messages.success(request,f'Your account has been created now go login')
+
             #redirection when successful
             print("check reached here")
-
-            return redirect('blogpost-home')
+            return redirect('login')
+            # return redirect('blogpost-home')
             # return HttpResponse('<h1>OK</h1>')
             #put messasge in base1
     else:
@@ -30,6 +34,7 @@ def register(request):
         form1 = UserRegisterForm()
 
     return render(request,'user1/register.html',{'form':form1})
+    #fields filled along with error messgae
 
 
 
@@ -39,3 +44,11 @@ def register(request):
 # messages.success
 # messages.warning
 # messages.error
+
+
+
+
+#profile rendering when you are logged in
+@login_required
+def profile(request):
+    return render(request,'user1/profile.html')

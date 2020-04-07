@@ -124,3 +124,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRIPSY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = 'blogpost-home'
+
+LOGIN_URL = 'login'
