@@ -123,6 +123,10 @@ USE_TZ = True
 # STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR,'mediastorage')
+MEDIA_URL = '/media/'
+
+
 CRIPSY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'blogpost-home'
 
