@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 # from .
+from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required = False) #default true
@@ -15,4 +16,18 @@ class UserRegisterForm(UserCreationForm):
 
 
 
-    pass
+#add user data by user
+
+class UsrrUpdateForm(forms.ModelForm):
+    # emial = forms.EmailField()
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username','email']
+
+
+class ProffileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['imagefiled']
