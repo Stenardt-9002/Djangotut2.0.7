@@ -34,7 +34,7 @@
 {%for pst in posts %}
 
 <article class="media content-section">
-  <img class="rounded-circle article-img" src="{{post.author.profile.imagefiled.url}}" alt="">
+  <img class="rounded-circle article-img" src="{{pst.author.profile.imagefiled.url}}" alt="">
 <div class="media-body">
   <div class="article-metadata">
     <a class="mr-2" href="#">{{ pst.author }}</a>
@@ -44,7 +44,7 @@
     <!-- filters present -->
 
   </div>
-  <h2><a class="article-title" href="#">{{ pst.title }}</a></h2>
+  <h2><a class="article-title" href="{% url 'post-detail' pst.pk %}">{{ pst.title }}</a></h2>
   <p class="article-content">{{ pst.content }}</p>
 </div>
 </article>
