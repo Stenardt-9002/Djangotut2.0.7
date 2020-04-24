@@ -1,45 +1,15 @@
 {% extends "blogpost/base1.html" %}
 
-<!--
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-
-    <meta charset="utf-8"> -->
-    <!-- <title>Home page</title> -->
-    <!-- {%if title%}
-    <title>Django Blogpost - {{ title}}</title>
-    {%else%}
-    <title>Django Blogpost</title>
-    {%endif%}
-  </head>
-  <body>
-    <h1>Blog Home!</h1> -->
-    <!-- template engine -->
-    <!-- {%for pst in posts %}
-    <h1>{{pst.title}}</h1>
-    <p>By {{pst.author}} on {{pst.data_posted}}</p>
-    <p>{{pst.content}}</p>
-    {% endfor %} -->
-<!--
-
-
-
-  </body>
-</html> -->
-
 <!-- template engine -->
 {%block content %}
-
+<h1 class="mb-3"> Posts by {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
 {%for pst in posts %}
 
 <article class="media content-section">
   <img class="rounded-circle article-img" src="{{pst.author.profile.imagefiled.url}}" alt="">
 <div class="media-body">
   <div class="article-metadata">
-{#    <a class="mr-2" href="#">{{ pst.author }}</a>#}
-          <a class="mr-2" href="{% url 'user-posts' pst.author.username %}">{{ pst.author }}</a>
-
+    <a class="mr-2" href="{% url 'user-posts' pst.author.username %}">{{ pst.author }}</a>
     <!-- <small class="text-muted">{{ pst.data_posted }}</small> -->
     <small class="text-muted">{{ pst.date_posted|date:"F d,Y"}}</small>
     <!-- updated according to model field in models.py -->

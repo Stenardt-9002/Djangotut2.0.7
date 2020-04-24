@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # sample based view data
@@ -39,12 +40,34 @@ class PostListView(ListView):
     # name of var to loop over in html
     context_object_name = 'posts'
     ordering = ['-date_posted']  # .models.py date-posted
-
+    paginate_by = 5
     """docstring for PostListView."""
 
     # def __init__(self, arg):
     #     super(PostListView, self).__init__()
     #     self.arg = arg
+
+class UserPostListView(ListView):
+    model = Post  # what model to query
+    template_name = 'blogpost/user_posts.html'  # <app>/<model>_<viewtype>.html
+    #filter for only a user
+    # name of var to loop over in html
+    context_object_name = 'posts'
+    ordering = ['-date_posted']  # .models.py date-posted
+    # the above statement will get overidden
+    paginate_by = 5
+    """docstring for UserPostListView."""
+
+    # def __init__(self, arg):
+    #     super(PostListView, self).__init__()
+    #     self.arg = arg
+
+    def get_queryset(self):
+        # associate user for url
+        user1 = get_object_or_404(User,username = self.kwargs.get('username'))
+        return Post.objects.filter(author=user1).order_by('-date_posted')
+
+
 
 
 class PostDetailView(DetailView):

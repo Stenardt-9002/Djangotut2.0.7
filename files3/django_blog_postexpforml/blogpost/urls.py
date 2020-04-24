@@ -10,6 +10,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', blogview.PostDeleteView.as_view(), name='post-delete'),
     path('post/new/', blogview.PostCreateView.as_view(), name='post-create'),
     path('', blogview.PostListView.as_view(),name='blogpost-home'),
+    path('user/<str:username>', blogview.UserPostListView.as_view(),name='user-posts'),
     path('about/',blogview.about,name = 'blogpost-about'),
     # path('register-user/',user_viwes.register,name = 'register'),
 ]
