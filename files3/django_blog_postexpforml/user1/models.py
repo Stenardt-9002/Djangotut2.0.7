@@ -21,8 +21,8 @@ class Profile(models.Model):
     #     super(Profile, self).__init__()
     #     self.arg = arg
     # override a method
-    def save(self):
-        super().save()  # running parent
+    def save(self,*args,**kwargs):
+        super().save(*args,**kwargs)  # running parent
         img = Image.open(self.imagefiled.path)
         #check size
         if img.height>300 or img.width>300:
