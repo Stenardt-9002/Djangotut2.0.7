@@ -28,7 +28,20 @@ urlpatterns = [
     path('', include('blogpost.urls')),
     path('register-user/',user_viwes.register,name = 'register'),
     path('login-user/',auth_views.LoginView.as_view(template_name = 'user1/login.html'),name = 'login'),
-    path('logout-user/', auth_views.LogoutView.as_view(template_name = 'user1/logout.html'), name='logout'),
+    path('logout-user/',
+        auth_views.LogoutView.as_view(template_name = 'user1/logout.html'),
+        name='logout'),
+    path('password-reset-user/', auth_views.PasswordResetView.as_view(template_name = 'user1/password1_reset.html'), name='password_reset'),
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name = 'user1/password1_reset_complete.html'), name='password_reset_complete'),
+    path('password-reset-user/done/', auth_views.PasswordResetDoneView.as_view(
+        template_name = 'user1/password1_reset_done.html') ,
+         name='password_reset_done'),
+
+path('password-reset-user-confirm/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(
+        template_name = 'user1/password1_reset_confirm.html') ,
+         name='password_reset_confirm'),
+
+
     path('profile-user/', user_viwes.profile, name='profile'),
 
     #default view login in
