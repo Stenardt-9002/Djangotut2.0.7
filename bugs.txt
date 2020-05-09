@@ -1,0 +1,4 @@
+
+Mail link does require any authentication and should not be accessed with wrong user name and wrong mail?
+Username sent is wrong
+

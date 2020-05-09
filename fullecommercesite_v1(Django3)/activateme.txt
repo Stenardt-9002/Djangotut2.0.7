@@ -1,0 +1,2 @@
+source '/home/i7-workstation/Desktop/temporary/test/bin/activate'
+
