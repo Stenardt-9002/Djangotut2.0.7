@@ -12,9 +12,10 @@ def contct_view(request):
 
 def about_view(request):
     my_context = {
-        "my_text":"This is about us",
+        "my_text":"this is about us",
         "my_nu" : 123,
-        "my_lit" : [12,34,45,56,312]
+        "my_lit" : [12,34,45,56,312],
+        "my_htm" : "<h1> This is sent from view </h1>",
 
     }
     # return HttpResponse("<h1> About Page </h1> ")

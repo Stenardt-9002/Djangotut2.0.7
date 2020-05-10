@@ -6,9 +6,11 @@
 
 <p>
 <!-- context variable  -->
-{{my_text}} , {{ my_nu }} , {{my_lit}}
+{{my_text |capfirst}} , {{ my_nu|center:"25" }} , {{my_lit}}
 </p>
 <!-- loop in my_lit  -->
+{{my_htm|safe|title}}   <!-- makes every word first letter capital -->
+{{my_htm|striptags}} without any tags
 
 <ul>
   {% for my_sub_item  in my_lit %}
