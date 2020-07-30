@@ -35,6 +35,12 @@ class Item(models.Model):
     def get_add_to_cart_url(self):
         # print("\n\n\nReached\n\n\n\n")
         return  reverse("core:add-to-cart",kwargs={
+            'slug':self.slug  #name in url
+        })
+
+
+    def get_remove_from_cart(self):
+        return reverse("core:remove",kwargs={
             'slug':self.slug
         })
 
@@ -51,7 +57,7 @@ class OrderItem(models.Model):
     def __str__(self):
         # return self.title
         return f"{self.quantity } of {self.item.title} this is string"
-
+# the above string is shown in admin site when checking for items
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

@@ -227,11 +227,12 @@
                       <span class="badge badge-pill {{item1.get_label_display}}-color">NEW</span>
                     </a>
                   </strong>
-                </h5>
+                </h5>products
 
                 <h4 class="font-weight-bold blue-text">
                   <!-- <strong>120$</strong> -->
                   {% if item1.discout_price %}
+                  <hr>Discount</hr>
                   <strong>{{item1.discout_price}}</strong>
                   {% else %}
                   <strong>{{item1.price}}</strong>

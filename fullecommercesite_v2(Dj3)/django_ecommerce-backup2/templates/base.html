@@ -44,7 +44,30 @@
 
 {% include "navbar.html" %}
 
+
+
+
+
+
 <body>
+  <div class="mt-5 pt-4">
+  {% if messages %}
+<!-- diplay messages  -->
+
+  {% for message in messages %}
+
+  <div class="alert alert-{{ message.tags }}" role="alert">
+    {{message}}
+  </div>
+
+ {% endfor %}
+{% endif %}
+</div>
+
+
+
+
+
     {% block content %}
     {% endblock content %}
 
