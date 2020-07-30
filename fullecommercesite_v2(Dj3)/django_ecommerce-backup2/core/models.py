@@ -3,48 +3,45 @@ from django.db import models
 from django.shortcuts import reverse
 
 CATEGORY_CHOICES = (
-    ('S','Shirt'),
-    ('SW','Sport wear'),
-    ('OW','Outwear')
+    ('S', 'Shirt'),
+    ('SW', 'Sport wear'),
+    ('OW', 'Outwear')
 )
-
 
 LABEL_CHOICES = (
-    ('P','primary'),
-    ('S','secondary'),
-    ('D','danger')
+    ('P', 'primary'),
+    ('S', 'secondary'),
+    ('D', 'danger')
 )
-
 
 
 class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
-    category = models.CharField(choices = CATEGORY_CHOICES,max_length = 2)
-    discout_price = models.FloatField(blank=True,null=True)
-    label = models.CharField(choices = LABEL_CHOICES,max_length = 1)
+    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+    discout_price = models.FloatField(blank=True, null=True)
+    label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     description = models.TextField(blank=True)
+
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return  reverse("core:product",kwargs={
-            'slug':self.slug
+        return reverse("core:product", kwargs={
+            'slug': self.slug
         })
+
     def get_add_to_cart_url(self):
         # print("\n\n\nReached\n\n\n\n")
-        return  reverse("core:add-to-cart",kwargs={
-            'slug':self.slug  #name in url
+        return reverse("core:add-to-cart", kwargs={
+            'slug': self.slug  # name in url
         })
-
 
     def get_remove_from_cart(self):
-        return reverse("core:remove",kwargs={
-            'slug':self.slug
+        return reverse("core:remove", kwargs={
+            'slug': self.slug
         })
-
-
 
 
 class OrderItem(models.Model):
@@ -56,7 +53,9 @@ class OrderItem(models.Model):
 
     def __str__(self):
         # return self.title
-        return f"{self.quantity } of {self.item.title} this is string"
+        return f"{self.quantity} of {self.item.title} this is string"
+
+
 # the above string is shown in admin site when checking for items
 
 class Order(models.Model):
@@ -69,8 +68,3 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-
-
-
