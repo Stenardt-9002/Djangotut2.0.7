@@ -56,7 +56,7 @@ class OrderItem(models.Model):
         return f"{self.quantity} of {self.item.title} this is string"
 
     def get_total_item_price(self):
-        return self.quantity*self.item.price
+        return self.quantity * self.item.price
 
     def get_discount_item_price(self):
         return self.item.discout_price * self.quantity
@@ -71,6 +71,7 @@ class OrderItem(models.Model):
         return self.get_discount_item_price()
         pass
 
+
 # the above string is shown in admin site when checking for items
 
 class Order(models.Model):
@@ -84,11 +85,9 @@ class Order(models.Model):
     def __str__(self):
         return self.user.username
 
-
     def get_total(self):
         total = 0
         for order_item in self.items.all():
             total += order_item.get_final_price()
         return total
         pass
-
