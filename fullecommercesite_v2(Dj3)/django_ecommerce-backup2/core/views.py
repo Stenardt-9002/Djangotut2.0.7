@@ -9,6 +9,7 @@ from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from .forms import CheckoutForm
 
 
 def products(request):
@@ -18,8 +19,26 @@ def products(request):
     return render(request, "products.html", context)
 
 
-def checkout(request):
-    return render(request, "checkout.html")
+# def checkout(request):
+#     return render(request, "checkout.html")
+
+class CheckoutView(View):
+    def get(self, *args, **kwargs):
+        form = CheckoutForm()
+        contxt = {
+            'requireform':form
+        }
+        return render(self.request, "checkout.html",contxt)
+
+    def post(self, *args, **kwargs):
+        form = CheckoutForm(self.request.POST or None)
+        if form.is_valid():
+            print("Vliad form Reached")
+            return redirect('core:checkout')
+            pass
+        pass
+
+    pass
 
 
 class HomeView(ListView):
@@ -164,7 +183,7 @@ def remove_single_from_cart(request, slug):
                 , user=request.user, ordered=False
             )[0]
             # removal
-            if order_item.quantity>1:
+            if order_item.quantity > 1:
                 order_item.quantity -= 1
                 order_item.save()
 
@@ -173,7 +192,6 @@ def remove_single_from_cart(request, slug):
                 pass
 
                 pass
-
 
             # order2.quantity -=1
             # order2.save()
