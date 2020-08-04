@@ -42,6 +42,7 @@ class CheckoutView(View):
                 apartment_address = form.cleaned_data.get('apartment_address')
                 country = form.cleaned_data.get('country')
                 zip = form.cleaned_data.get('zip')
+                # TODO : add functionailty fo these field
                 same_shipping_address = form.cleaned_data.get('same_shipping_address')
                 save_info = form.cleaned_data.get('save_info')
                 payment_option = form.cleaned_data.get('payment_option')
@@ -56,6 +57,7 @@ class CheckoutView(View):
                 # print(form.cleaned_data)
                 order.billing_address = billing_address
                 order.save()
+                # TODO : add redirect to selected payment
                 return redirect('core:checkout')
             messages.warning(self.request, "Incorrect Checkout , Not accepted")
             return redirect('core:checkout')
@@ -64,6 +66,15 @@ class CheckoutView(View):
             return redirect("core:order-summary")
 
             # print(self.request.POST)
+
+
+class PaymentView(View):
+    def get(self,*args,**kwargs):
+        return render(self.request,"payment.html")
+        pass
+
+
+
 
 
 class HomeView(ListView):
