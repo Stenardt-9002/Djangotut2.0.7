@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'crispy_forms',
     'django_countries',
-    'core'
+    'core',
+    # 'fontawesome_5'
 ]
 
 MIDDLEWARE = [
@@ -77,5 +78,8 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
+
+# FONTAWESOME_5_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
