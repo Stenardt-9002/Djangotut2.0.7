@@ -6,13 +6,14 @@ from django.conf import settings
 # auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Item, OrderItem, Order, Billing_Address,Payment
+from .models import Item, OrderItem, Order, Billing_Address, Payment
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import CheckoutForm
 import stripe
+
 
 # stripe.api_key = settings.STRIPE_TEST_KEY  # SERECT KEY
 
@@ -62,7 +63,17 @@ class CheckoutView(View):
                 # print(form.cleaned_data)
                 order.billing_address = billing_address
                 order.save()
-                # TODO : add redirect to selected payment
+
+                # //select mode of payment
+                if payment_option == 'S':
+                    return redirect('core:payment',payment_option='stripe')
+                elif payment_option == 'S':
+                    return redirect('core:payment',payment_option='paypal')
+                else:
+                    messages.warning(self.request,"Payment Option Error")
+                    return redirect("core:checkout")
+
+
                 return redirect('core:checkout')
             messages.warning(self.request, "Incorrect Checkout , Not accepted")
             return redirect('core:checkout')
@@ -75,24 +86,96 @@ class CheckoutView(View):
 
 class PaymentView(View):
     def get(self, *args, **kwargs):
-        return render(self.request, "payment.html")
+        # return render(self.request, "payment.html")
+        order = Order.objects.get(user=self.request.user, ordered=False)
+        context = {
+            'order': order
+        }
+        return render(self.request, "payment.html", context)
         pass
 
     def post(self, *args, **kwargs):
-        #get order
-        order = Order.objects.get(user = self.request.user,ordered = False)
+        # get order
+        order = Order.objects.get(user=self.request.user, ordered=False)
         token = self.request.POST.get('stripeToken')
-        stripe.Charge.create(
-            amount = order.get_total(),
-            currency = "eur",
-            source = token,
-            description = "Charge for email"
 
-        )
+        amount = int(order.get_total())
+
+        try:
+            charge = stripe.Charge.create(
+                amount=order.get_total(),
+                currency="eur",
+                source=token,
+                description="Charge for email"
+
+            )
+            # Use Stripe's library to make requests...
+
+            payment = Payment()
+            payment.stripe_char_id = charge['id']
+            payment.user = self.request.user
+
+            payment.amount = order.get_total()
+            payment.save()
+
+            order.ordered = True
+            order.payment = payment
+            order.save()
+
+            # redirection
+            messages.success(self.request, "Your order was successful!")
+            return redirect("/")
+
+            pass
+        except stripe.error.CardError as e:
+            # Since it's a decline, stripe.error.CardError will be caught
+
+            body = e.json_body
+            err = body.get('error', {})
+            messages.error(self.request, f"{err.get('message')}")
+            return redirect("/")
+
+
+        except stripe.error.RateLimitError as e:
+            # Too many requests made to the API too quickly
+            messages.error(self.request, "Rate Limit crossed")
+            return redirect("/")
+
+            pass
+        except stripe.error.InvalidRequestError as e:
+            # Invalid parameters were supplied to Stripe's API
+            messages.error(self.request, "Invalid Parameters")
+            return redirect("/")
+
+            pass
+        except stripe.error.AuthenticationError as e:
+            # Authentication with Stripe's API failed
+            # (maybe you changed API keys recently)
+            messages.error(self.request, "Not authenticated")
+            return redirect("/")
+
+            pass
+        except stripe.error.APIConnectionError as e:
+            # Network communication with Stripe failed
+            messages.error(self.request, "Network Error")
+            return redirect("/")
+
+            pass
+        except stripe.error.StripeError as e:
+            # Display a very generic error to the user, and maybe send
+            # messages.error(self.request,"Something went wrong.You were not charged . Please try again")
+            messages.error(self.request, "You have been goatseed by stripe")
+            return redirect("/")
+
+            # yourself an email
+            pass
+        except Exception as e:
+            # our bug
+            pass
+
         order.ordered = True
 
-
-        #create payment
+        # create payment
 
         pass
 
