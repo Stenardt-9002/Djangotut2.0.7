@@ -1,4 +1,4 @@
-"""django_react URL Configuration
+"""django_test_tweetme URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -15,15 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pagesinfo import views
-from pagesinfo.views import contact_view
-from core.views import product_create_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home_view,name = 'home' ),
-    # path('admin/',)
-    path('contact/',contact_view),
-    path('create/',product_create_view),
-
 ]
