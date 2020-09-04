@@ -7,18 +7,36 @@ from .models import Product
 
 
 def product_create_view(request):
-    form = ProductForm(request.POST or None)
-    if form.is_valid():
-        print("REACHED KAJASS")
-        form.save()
-
-
-
-    context = {
-        'form':form
-    }
+    context = {}
 
     return render(request,"core/product_detail.html",context)
+
+
+
+
+
+
+
+
+
+
+
+    # form = ProductForm(request.POST or None)
+    #
+    # print(request.GET)
+    # print(request.POST)
+    # if form.is_valid():
+    #     print("REACHED ")
+    #     form.save()
+    #     form = ProductForm()
+    #
+    #
+    #
+    # context = {
+    #     'form':form
+    # }
+    #
+    # return render(request,"core/product_detail.html",context)
 
 
 # def product_detail_view(request):
