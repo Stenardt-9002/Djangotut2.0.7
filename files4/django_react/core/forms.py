@@ -44,3 +44,22 @@ class RawProductform(forms.Form):
 
 
 pass
+
+
+class EditProduct(forms.ModelForm):
+    id = forms.IntegerField()
+
+    class Meta:
+        model = Product
+        fields = [
+            'id'
+        ]
+
+    def clean_id(self, *args, **kwargs):
+        id = self.cleaned_data.get("id")
+
+        obj_get = Product.objects.all()
+        obj_list = [query.id for query in obj_get]
+        if not id in obj_list:
+            raise forms.ValidationError("id not accepted")
+        return id

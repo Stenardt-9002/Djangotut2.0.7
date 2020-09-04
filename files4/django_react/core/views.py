@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render
-from .forms import ProductForm, RawProductform
+from .forms import ProductForm, RawProductform, EditProduct
 from .models import Product
 
 
@@ -37,6 +37,7 @@ def product_create_view(request):
 
     return render(request, "core/product_detail.html", context)
 
+
 # def product_detail_view(request):
 #     obj = Product.objects.get(id = 1)
 #     context = {
@@ -44,3 +45,39 @@ def product_create_view(request):
 #     }
 #
 #     return render(request,"products/product_detail.html",context)
+
+
+def render_change_data(request):
+    # initial_data = {
+    #     'title':
+    # }
+    # obj_jet = Product.objects.
+
+    form = EditProduct(request.POST)
+    # context = {
+    #     "senor_form":form
+    #            }
+    if form.is_valid():
+
+        # if request.method == "POST":
+        idval = form.cleaned_data.get("id")
+        print(idval)
+        obj1 = Product.objects.get(id=(int)(idval))
+
+        print(obj1)
+        form = ProductForm(instance=obj1)
+        if request.method=="POST":
+            print("Kirsten Dunst")
+            
+            if form.is_valid():
+                print("The phoque")
+                form.save()
+
+    context = {
+        "senor_form": form
+    }
+
+    # return render(request,"core/product_create.html" ,context)
+    return render(request, "core/product_detail.html", context)
+
+    pass

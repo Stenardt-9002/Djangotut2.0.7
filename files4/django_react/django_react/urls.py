@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from pagesinfo import views
 from pagesinfo.views import contact_view
-from core.views import product_create_view
+from core.views import product_create_view,render_change_data
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     # path('admin/',)
     path('contact/',contact_view),
     path('create/',product_create_view),
+    path('edit/',render_change_data),
 
 ]
