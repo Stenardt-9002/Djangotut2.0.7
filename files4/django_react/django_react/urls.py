@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from pagesinfo import views
 from pagesinfo.views import contact_view
-from core.views import product_create_view,render_change_data
+from core.views import product_create_view,render_change_data,dynamic_lookup_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,6 @@ urlpatterns = [
     path('contact/',contact_view),
     path('create/',product_create_view),
     path('edit/',render_change_data),
+    path('products/<int:id>/',dynamic_lookup_view,name = 'product' ),
 
 ]

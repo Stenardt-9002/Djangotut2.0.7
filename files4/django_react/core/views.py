@@ -1,7 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 from .forms import ProductForm, RawProductform, EditProduct
 from .models import Product
 
@@ -66,9 +67,9 @@ def render_change_data(request):
 
         print(obj1)
         form = ProductForm(instance=obj1)
-        if request.method=="POST":
+        if request.method == "POST":
             print("Kirsten Dunst")
-            
+
             if form.is_valid():
                 print("The phoque")
                 form.save()
@@ -79,5 +80,37 @@ def render_change_data(request):
 
     # return render(request,"core/product_create.html" ,context)
     return render(request, "core/product_detail.html", context)
+
+    pass
+
+
+def dynamic_lookup_view(request, id):
+    try:
+        obj = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        raise Http404
+        pass
+    context = {
+        "object": obj
+    }
+
+    # return render(request,"products/product_detail.html",context)
+    return render(request, "core/product_detail.html", context)
+
+    # except:
+
+
+def product_delete_view(request, id):
+    obj = get_object_or_404(Product, id=id)
+
+    if request.method == "POST":
+        obj.delete()
+
+        pass
+    context = {
+        "object": obj
+    }
+
+    return render()
 
     pass
