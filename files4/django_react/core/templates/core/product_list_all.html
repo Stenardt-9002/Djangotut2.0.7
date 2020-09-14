@@ -7,8 +7,9 @@
 
 
 {% for instance in object %}
-    {{ instance.title }}
 
+    <a href = "{{  instance.get_absolute_url }}">{{ instance.title }}</a>
+    <br>
 {% endfor %}
 
 
