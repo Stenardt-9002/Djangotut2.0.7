@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProductForm, RawProductform, EditProduct
 from .models import Product
 
@@ -105,7 +105,7 @@ def product_delete_view(request, id):
 
     if request.method == "POST":
         obj.delete()
-        #redirect
+        # redirect
         return redirect('../../')
         pass
     context = {
@@ -115,3 +115,11 @@ def product_delete_view(request, id):
     return render(request, "core/product_delete.html", context)
 
     pass
+
+
+def render_all_object(request):
+    queryset = Product.objects.all()
+    context = {
+        "object": queryset
+    }
+    return render(request,"core/product_list_all.html",context)

@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+
+
+{% block content %}
+
+{{ object }}
+
+
+{% for instance in object %}
+    {{ instance.title }}
+
+{% endfor %}
+
+
+
+{%  endblock %}
+
+
+
