@@ -23,6 +23,7 @@ def apiTesting(request):
 
     pass
 
+
 @api_view(['GET'])
 def taskList(request):
     tasks = Task.objects.all()
@@ -32,17 +33,51 @@ def taskList(request):
     # return Response()
 
 
-
-
 @api_view(['GET'])
-def specificTask(request,pk):
-    tasks = Task.objects.get(id= pk)
+def specificTask(request, pk):
+    tasks = Task.objects.get(id=pk)
     serializer = TaskSerialiser(tasks, many=False)
     return Response(serializer.data)
 
     # return Response()
 
 
+# send data
+
+@api_view(['POST'])
+def specificTaskcreate(request):
+    serializer = TaskSerialiser(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
+    return Response(serializer.data)
+
+
+# update data
+
+@api_view(['POST'])
+def specificTaskupdate(request, pk):
+    task = Task.objects.get(id=pk)
+
+    serializer = TaskSerialiser(instance=task, data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+
+    return Response(serializer.data)
+
+    # return Response()
 
 
 
+# delete emthod
+
+
+
+@api_view(['POST'])
+def specificTaskdelete(request, pk):
+    task = Task.objects.get(id=pk)
+    task.delete()
+
+    return Response("That is history")
