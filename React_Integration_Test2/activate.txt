@@ -1,0 +1,1 @@
+source activate /home/r7-mini-workstation/Desktop/pythonvirtualenvs/djangoenv/bin/activate
