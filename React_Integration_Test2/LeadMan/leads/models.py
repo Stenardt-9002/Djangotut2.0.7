@@ -8,9 +8,7 @@ class Leads(models.Model):
     created_At = models.DateTimeField(auto_now_add=True)
 
 
-    pass
-
-
+ 
 
 # Create your models here.
 
